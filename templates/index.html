@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='media/favicon.ico') }}"/>
+    <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:200,400&display=swap" rel="stylesheet">
+
+    <style>
+
+        .spine {
+            background-image: url({{ url_for('static', filename='media/wave.png') }});
+            background-repeat: repeat-y;
+            background-position: top right;
+        }
+
+        .wave-divide {
+            background-image: url({{ url_for('static', filename='media/wave2.png') }});
+            background-repeat: repeat-y;
+            background-position: top right;
+        }
+
+        @font-face {
+            font-family: "SourceCodePro-ExtraLight";
+            font-weight: 200;
+            font-style: normal;
+            src: url({{ url_for('static', filename='fonts/SourceCodePro-ExtraLight.eot') }});
+            src: url({{ url_for('static', filename='fonts/SourceCodePro-ExtraLight.eot?#iefix') }}) format('embedded-opentype'),
+            url({{ url_for('static', filename='fonts/SourceCodePro-ExtraLight.woff2') }}) format("woff2"),
+            url({{ url_for('static', filename='fonts/SourceCodePro-ExtraLight.woff') }}) format("woff");
+        }
+
+        @font-face {
+            font-family: "SourceCodePro-Regular";
+            font-weight: 400;
+            font-style: normal;
+            src: url({{ url_for('static', filename='fonts/SourceCodePro-Regular.eot') }});
+            src: url({{ url_for('static', filename='fonts/SourceCodePro-Regular.eot?#iefix') }}) format('embedded-opentype'),
+            url({{ url_for('static', filename='fonts/SourceCodePro-Regular.woff2') }}) format("woff2"),
+            url({{ url_for('static', filename='fonts/SourceCodePro-Regular.woff') }}) format("woff");
+        }
+
+        @font-face {
+            font-family: "MontserratAlternates-ExtraLight";
+            font-weight: 200;
+            font-style: normal;
+            src: url({{ url_for('static', filename='fonts/MontserratAlternates-ExtraLight.eot') }});
+            src: url({{ url_for('static', filename='fonts/MontserratAlternates-ExtraLight.eot?#iefix') }}) format('embedded-opentype'),
+            url({{ url_for('static', filename='fonts/MontserratAlternates-ExtraLight.woff2') }}) format("woff2"),
+            url({{ url_for('static', filename='fonts/MontserratAlternates-ExtraLight.woff') }}) format("woff");
+        }
+
+        @font-face {
+            font-family: "MontserratAlternates-Light";
+            font-weight: 300;
+            font-style: normal;
+            src: url({{ url_for('static', filename='fonts/MontserratAlternates-Light.eot') }});
+            src: url({{ url_for('static', filename='fonts/MontserratAlternates-Light.eot?#iefix') }}) format('embedded-opentype'),
+            url({{ url_for('static', filename='fonts/MontserratAlternates-Light.woff2') }}) format("woff2"),
+            url({{ url_for('static', filename='fonts/MontserratAlternates-Light.woff') }}) format("woff");
+        }
+
+        @font-face {
+            font-family: "MontserratAlternates-ExtraBold";
+            font-weight: 800;
+            font-style: normal;
+            src: url({{ url_for('static', filename='fonts/MontserratAlternates-ExtraBold.eot') }});
+            src: url({{ url_for('static', filename='fonts/MontserratAlternates-ExtraBold.eot?#iefix') }}) format('embedded-opentype'),
+            url({{ url_for('static', filename='fonts/MontserratAlternates-ExtraBold.woff2') }}) format("woff2"),
+            url({{ url_for('static', filename='fonts/MontserratAlternates-ExtraBold.woff') }}) format("woff");
+        }
+
+        {##}
+        {#@font-face {#}
+        {#    font-family: "Montserrat Regular";#}
+        {#    font-weight: 400;#}
+        {#    font-style: normal;#}
+        {#    src: url("fonts/Montserrat-Regular.eot");#}
+        {#    src: url("fonts/Montserrat-Regular.eot?#iefix") format('embedded-opentype'),#}
+        {#    url("fonts/Montserrat-Regular.woff2") format("woff2"),#}
+        {#    url("fonts/Montserrat-Regular.woff") format("woff");#}
+        {#}#}
+        {##}
+        {#@font-face {#}
+        {#    font-family: "Montserrat Medium";#}
+        {#    font-weight: 500;#}
+        {#    font-style: normal;#}
+        {#    src: url("fonts/Montserrat-Medium.eot");#}
+        {#    src: url("fonts/Montserrat-Medium.eot?#iefix") format('embedded-opentype'),#}
+        {#    url("fonts/Montserrat-Medium.woff2") format("woff2"),#}
+        {#    url("fonts/Montserrat-Medium.woff") format("woff");#}
+        {#}#}
+
+    </style>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+
+    <script type=text/javascript>
+        $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+    </script>
+    <script type="text/javascript" src="{{ url_for('static', filename='jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='d3.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='print.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='base.js') }}"></script>
+
+    <title>Vinaware</title>
+
+</head>
+<body>
+
+<main>
+
+    <div class="spine">
+
+        <nav>
+            <a href="#" id="logo">,</a>
+        </nav>
+
+        <aside>
+            <a href="#" id="about" class="bottom-nav">!</a><br>
+            <a href="#" id="help" class="bottom-nav">?</a><br>
+            <a href="#" id="wind" class="bottom-nav">~</a><br>
+            <a href="#" id="new" class="bottom-nav">+</a><br>
+{#            <a href="#" id="play" class="bottom-nav">></a><br>#}
+            <a href="#" id="save" class="bottom-nav">↓</a>
+        </aside>
+
+    </div>
+
+    <div class="all-tooltips">
+        <div id="logo-tooltip" class="tooltip"><em>ја нисам жељан да ме ко воли, него да сви заволе лишће</em></div>
+        <div id="about-tooltip" class="tooltip">о пројекту</div>
+        <div id="help-tooltip" class="tooltip">помоћ и упутства</div>
+        <div id="wind-tooltip" class="tooltip">зањиши текст</div>
+        <div id="new-tooltip" class="tooltip">започни нови текст</div>
+{#        <div id="play-tooltip" class="tooltip">пусти да се текст пише сам</div>#}
+        <div id="save-tooltip" class="tooltip">преузми и одштампај текст</div>
+    </div>
+
+    <div id="central-content">
+
+        <div class="viz-mode">
+
+            <section id="main-section">
+                <div id="treeviz">
+                    <svg>
+                    </svg>
+                </div>
+            </section>
+
+            <div class="wave-divide"></div>
+
+            <article id="main-article">
+                <h1 id="text-title">10:42</h1>
+                <h2 id="text-date"><em>10. 9. 2019.</em></h2>
+                <div id="generated-text">
+{#                    енглеска је у том тренутку била страшна лица, која је, врло млада, врло добро, могла би било, чак и, да се, заувек, растају, а да ће му нога остати, ако не добије децу. она се, међутим, појави, у његовом загрљају скоро сасвим. млади су га, дакле, и, у лондону. кад стигли киша, у собу, виде да их и села, и да се из даљине. а кад су се вратили, тако, да је више од годину дана, али да је његова жена и рекла: да је то била, да је све узалуд учинио. осећао је, зачудо, да је, у том тренутку, осећао као да је, и он, могао да покаже свој утицај, оних, који се враћају на море, чак и у море, као и небо, па и у његовој, и она, полако, одлази, у своју кућу.#}
+                </div>
+            </article>
+
+        </div>
+
+    </div>
+
+    <div id="loading" class="loading" style="display:none">
+        <img src="{{ url_for('static', filename='media/loading.gif') }}"
+             alt="текст се генерише...">
+    </div>
+
+    <div id="hidden-sections" class="hidden">
+
+        <div class="about-text">
+
+            <div class="help-mode about-text-styled">
+
+                <div class="header">
+                    <h1>ја нисам жељан да ме ко воли,<br>него да сви заволе лишће</h1>
+                </div>
+
+                <div class="header-x">
+                    <a href="#" class="headx">x</a>
+                </div>
+
+                <div class="column1 clm-bottom">
+                    <p id='p0'>да је станислав винавер данас жив, тврдим да би био књижевни роботичар.</p>
+                    <p id='p1'>програмирао би вештачке неуралне мреже за генерисање прозе и дизајнирао уметничке интерфејсе. њима би пародирао не само писце и стилове – милоша црњанског пре свих – него би и критиковао читав нови машинско-медијски режим за који је текст само дигитална сировина, податак и роба.</p>
+                    <p id='p2'>винавер би радио исто што је радио у својој <em>пантологији новије српске пеленгирике</em>, само уз помоћ дигиталне технологије.</p>
+                    <p id='p3'>данас, наиме, рачунари читају и пишу, компаније пројектују речнике као приватне базе података, а речи се статистички анализирају, рангирају, мере и продају.</p>
+                </div>
+
+                <div class="column2 clm-bottom">
+                    <p id='p4'>примера ради, реч <em>добро</em> алгоритми читају као индикатор спремности на куповину, док реч <em>поезија</em> на претраживачкој берзи за рекламне текстове вреди 172.56 рсд.</p>
+                    <p id='p5'>као математичара по образовању а писца по мисији, винавера би нови текстуални режим позвао да измисли нове књижевне праксе. зашто не бисмо, запитао би се, технике корпоративне анализе текста употребили као ауторски поступак? винавер би пре свих разумео да је нова дада – <em>дата</em>-дада.</p>
+                    <p id='p6'>спаковао би, рецимо, комплетна сабрана дела црњанског у један текстуални фајл и задао алгоритму (рекурентној неуралној мрежи, <em>РНН ЛСТМ/ГРУ</em>) да анализира и памти статистичке односе између речи.</p>
+                </div>
+
+                <div class="column3 clm-bottom">
+                    <p id='p7'>тако би добио малог софтверског бота који подражава црњанског.</p>
+                    <p id='p8'>затим би дизајнирао анимирани интерфејс за приказ нелинеарног дигиталног текста и потенцијалних прозних рукаваца.</p>
+                    <p id='p9'>рад би се звао: <em>ја нисам жељан да ме ко воли, него да сви заволе лишће</em> – по реченици црњанског из <em>дневника о чарнојевићу</em>.</p>
+                    <p id='p10'>кликовима по овом интерактивном арборизованом роману, корисници/читаоци/гледаоци могли би да учествују у процесу генерисања прозе.</p>
+                    <p id='p11'>тако је (од свега тога, у једној хотелској соби) настао овај пројекат.</p>
+                </div>
+
+                <div class="signature">
+                    <p id='p11'><em>урош крчадинац, 2019.</em></p>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="help-text">
+
+            <div class="help-mode about-text-styled">
+
+                <div class="header">
+                    <h1>помоћ и упутства</h1>
+                </div>
+
+                <div class="header-x">
+                    <a href="#" class="headx">x</a>
+                </div>
+
+                <div class="column1 clm-bottom">
+                    <p class="question">шта је ово?</p>
+                    <p>дитални рад <em>ја нисам жељан да ме ко воли, него да сви заволе лишће</em> представља интерактивну визуелизацију софтверског бота који аутоматски генерише прозу.</p>
+                    <p class="question">какву прозу?</p>
+                    <p>прозу по узору на милоша црњанског. текстуални корпус над којим је неурални алгоритам трениран састојао се од сабраних дела црњанског.</p>
+                    <p class="question">како се софтвер користи?</p>
+                    <p>у центру је визуелизација потенцијалних гранања у тексту. десно од визуелизације аутоматски се исписује текст: нови роман, прича, песма или провокација. кликом на грану проширује се текст са стране.</p>
+                </div>
+
+                <div class="column2 clm-bottom">
+                    <p class="question">како ради алгоритам?</p>
+                    <p>ради на принципу рекурентних неуралних мрежа (РНН ЛСТМ/ГРУ). на основу свих речи које је црњански икада употребио, алгоритам рачуна вероватноће које одређују која реч после које дође. дакле: не метафизика него статистика.</p>
+                    <p class="question">како да сачувам текст који сам изгенерисао?</p>
+                    <p>одштампајте га. ено иконице у доњем левом углу.</p>
+                    <p class="question">ко је аутор овог текста?</p>
+                    <p>ви, алгоритам, милош црњански, станислав винавер и ја. или кенет голдсмит. или случај. или нико.</p>
+                </div>
+
+                <div class="column3 clm-bottom">
+                    <p class="question">хоће ли вештачка интелигенција обесмислити поезију?</p>
+                    <p>не. машина је глупа: не разуме <em>ниједну</em> реч које видите на екрану, само их ређа једну за другом на основу вероватноћа које је израчунала.</p>
+                    <p class="question">хоће ли нас поробити?</p>
+                    <p>не. али може да помогне неким људима да поробе друге људе. отуд је потребно да се играмо машинама, да их користимо на чудне начине, да правимо намерно бескорисне изуме – да бисмо схватили не само њихову логику, него и етику и естетику. нова дада је <em>дата</em>-дата.</p>
+                </div>
+
+                <div class="signature">
+                    <p id='p11'><em>урош крчадинац, 2019.</em></p>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="main-content-saved"></div>
+
+    </div>
+
+</main>
+
+</body>
+</html>

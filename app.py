@@ -17,6 +17,8 @@ def create_model():
     global default_input_words
     temp = [1.0, 0.5, 0.2, 0.9]
 
+    print("test1")
+
     for i in range(1, 2):
         wp = 'model/vinaware' + str(i) + '_weights.hdf5'
         vp = 'model/vinaware' + str(i) + '_vocab.json'
@@ -30,8 +32,13 @@ def create_model():
     default_input_words = new_textgen["words"]
     textgen = new_textgen["txtgen"]
 
+    print("textgen")
+    print(textgen)
+
 @app.route('/_generate')
 def generate():
+
+    print("generating...")
 
     global default_input_words
     global textgen

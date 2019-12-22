@@ -1,3 +1,4 @@
+import tensorflow as tf
 from keras.callbacks import LearningRateScheduler, Callback
 from keras.models import Model, load_model
 from keras.preprocessing import sequence
@@ -39,38 +40,50 @@ class textgenrnn:
                  config_path=None,
                  name="textgenrnn"):
 
-        if weights_path is None:
-            weights_path = resource_filename(__name__,
-                                             'textgenrnn_weights.hdf5')
+        #added
+        self.session = tf.Session()
+        self.graph = tf.get_default_graph()
 
-        if vocab_path is None:
-            vocab_path = resource_filename(__name__,
-                                           'textgenrnn_vocab.json')
+        #added
+        with self.graph.as_default():
+            with self.session.as_default():
 
-        if config_path is not None:
-            with open(config_path, 'r',
-                      encoding='utf8', errors='ignore') as json_file:
-                self.config = json.load(json_file)
-
-        self.config.update({'name': name})
-        self.default_config.update({'name': name})
-
-        with open(vocab_path, 'r',
-                  encoding='utf8', errors='ignore') as json_file:
-            self.vocab = json.load(json_file)
-
-        self.tokenizer = Tokenizer(filters='', lower=False, char_level=True)
-        self.tokenizer.word_index = self.vocab
-        self.num_classes = len(self.vocab) + 1
-        self.model = textgenrnn_model(self.num_classes,
-                                      cfg=self.config,
-                                      weights_path=weights_path)
-        self.indices_char = dict((self.vocab[c], c) for c in self.vocab)
+                #moved_within
+                if weights_path is None:
+                    weights_path = resource_filename(__name__,
+                                                     'textgenrnn_weights.hdf5')
+        
+                if vocab_path is None:
+                    vocab_path = resource_filename(__name__,
+                                                   'textgenrnn_vocab.json')
+        
+                if config_path is not None:
+                    with open(config_path, 'r',
+                              encoding='utf8', errors='ignore') as json_file:
+                        self.config = json.load(json_file)
+        
+                self.config.update({'name': name})
+                self.default_config.update({'name': name})
+        
+                with open(vocab_path, 'r',
+                          encoding='utf8', errors='ignore') as json_file:
+                    self.vocab = json.load(json_file)
+        
+                self.tokenizer = Tokenizer(filters='', lower=False, char_level=True)
+                self.tokenizer.word_index = self.vocab
+                self.num_classes = len(self.vocab) + 1
+                self.model = textgenrnn_model(self.num_classes,
+                                              cfg=self.config,
+                                              weights_path=weights_path)
+                self.indices_char = dict((self.vocab[c], c) for c in self.vocab)
 
     def generate_random_start(self, n=1, return_as_list=False, prefix=None,
                  temperature=[1.0, 0.5, 0.2, 0.2],
                  max_gen_length=300, interactive=False):
-        word_list = generate_random_start_text(self.model,
+
+        with self.graph.as_default():
+            with self.session.as_default():
+                word_list = generate_random_start_text(self.model,
                                                   self.vocab,
                                                   self.indices_char,
                                                   temperature,
@@ -81,13 +94,16 @@ class textgenrnn:
                                                       'single_text', False),
                                                   max_gen_length,
                                                   interactive)
-        return word_list
+                return word_list
 
     def generate_special(self, n=1, return_as_list=False, prefix=None,
                  temperature=[1.0, 0.5, 0.2, 0.2],
                  max_gen_length=300, interactive=False,
                  top_n=3, progress=True, input_text=None, input_depth=7):
-        gen_text, _ = textgenrnn_generate_special(self.model,
+
+        with self.graph.as_default():
+            with self.session.as_default():
+                gen_text, _ = textgenrnn_generate_special(self.model,
                                            self.vocab,
                                            self.indices_char,
                                            temperature,
@@ -102,7 +118,7 @@ class textgenrnn:
                                            prefix,
                                            input_text=input_text,
                                            input_depth=input_depth)
-        return gen_text
+                return gen_text
 
     def generate(self, n=1, return_as_list=False, prefix=None,
                  temperature=[1.0, 0.5, 0.2, 0.2],

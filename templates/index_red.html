@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='media/favicon.ico') }}"/>
+    <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:200,400&display=swap" rel="stylesheet">
+
+    <style>
+
+        .spine {
+            background-image: url({{ url_for('static', filename='media/wave.png') }});
+            background-repeat: repeat-y;
+            background-position: top right;
+        }
+
+        .wave-divide {
+            background-image: url({{ url_for('static', filename='media/wave2.png') }});
+            background-repeat: repeat-y;
+            background-position: top right;
+        }
+
+        @font-face {
+            font-family: "PlanGrotesquePro-Light";
+            font-weight: 200;
+            font-style: normal;
+            src: url({{ url_for('static', filename='fonts/PlanGrotesquePro-Light.woff') }}) format("woff");
+        }
+
+        @font-face {
+            font-family: "PlanGrotesquePro-Regular";
+            font-weight: 400;
+            font-style: normal;
+            src: url({{ url_for('static', filename='fonts/PlanGrotesquePro-Regular.woff') }}) format("woff");
+        }
+
+        @font-face {
+            font-family: "PlanGrotesquePro-Bold";
+            font-weight: 700;
+            font-style: normal;
+            src: url({{ url_for('static', filename='fonts/PlanGrotesquePro-Bold.woff') }}) format("woff");
+        }
+
+        @font-face {
+            font-family: "SourceCodePro-ExtraLight";
+            font-weight: 200;
+            font-style: normal;
+            src: url({{ url_for('static', filename='fonts/SourceCodePro-ExtraLight.eot') }});
+            src: url({{ url_for('static', filename='fonts/SourceCodePro-ExtraLight.eot?#iefix') }}) format('embedded-opentype'),
+            url({{ url_for('static', filename='fonts/SourceCodePro-ExtraLight.woff2') }}) format("woff2"),
+            url({{ url_for('static', filename='fonts/SourceCodePro-ExtraLight.woff') }}) format("woff");
+        }
+
+        @font-face {
+            font-family: "SourceCodePro-Regular";
+            font-weight: 400;
+            font-style: normal;
+            src: url({{ url_for('static', filename='fonts/SourceCodePro-Regular.eot') }});
+            src: url({{ url_for('static', filename='fonts/SourceCodePro-Regular.eot?#iefix') }}) format('embedded-opentype'),
+            url({{ url_for('static', filename='fonts/SourceCodePro-Regular.woff2') }}) format("woff2"),
+            url({{ url_for('static', filename='fonts/SourceCodePro-Regular.woff') }}) format("woff");
+        }
+
+        @font-face {
+            font-family: "MontserratAlternates-ExtraLight";
+            font-weight: 200;
+            font-style: normal;
+            src: url({{ url_for('static', filename='fonts/MontserratAlternates-ExtraLight.eot') }});
+            src: url({{ url_for('static', filename='fonts/MontserratAlternates-ExtraLight.eot?#iefix') }}) format('embedded-opentype'),
+            url({{ url_for('static', filename='fonts/MontserratAlternates-ExtraLight.woff2') }}) format("woff2"),
+            url({{ url_for('static', filename='fonts/MontserratAlternates-ExtraLight.woff') }}) format("woff");
+        }
+
+        @font-face {
+            font-family: "MontserratAlternates-Light";
+            font-weight: 300;
+            font-style: normal;
+            src: url({{ url_for('static', filename='fonts/MontserratAlternates-Light.eot') }});
+            src: url({{ url_for('static', filename='fonts/MontserratAlternates-Light.eot?#iefix') }}) format('embedded-opentype'),
+            url({{ url_for('static', filename='fonts/MontserratAlternates-Light.woff2') }}) format("woff2"),
+            url({{ url_for('static', filename='fonts/MontserratAlternates-Light.woff') }}) format("woff");
+        }
+
+        @font-face {
+            font-family: "MontserratAlternates-ExtraBold";
+            font-weight: 800;
+            font-style: normal;
+            src: url({{ url_for('static', filename='fonts/MontserratAlternates-ExtraBold.eot') }});
+            src: url({{ url_for('static', filename='fonts/MontserratAlternates-ExtraBold.eot?#iefix') }}) format('embedded-opentype'),
+            url({{ url_for('static', filename='fonts/MontserratAlternates-ExtraBold.woff2') }}) format("woff2"),
+            url({{ url_for('static', filename='fonts/MontserratAlternates-ExtraBold.woff') }}) format("woff");
+        }
+
+        {##}
+        {#@font-face {#}
+        {#    font-family: "Montserrat Regular";#}
+        {#    font-weight: 400;#}
+        {#    font-style: normal;#}
+        {#    src: url("fonts/Montserrat-Regular.eot");#}
+        {#    src: url("fonts/Montserrat-Regular.eot?#iefix") format('embedded-opentype'),#}
+        {#    url("fonts/Montserrat-Regular.woff2") format("woff2"),#}
+        {#    url("fonts/Montserrat-Regular.woff") format("woff");#}
+        {#}#}
+        {##}
+        {#@font-face {#}
+        {#    font-family: "Montserrat Medium";#}
+        {#    font-weight: 500;#}
+        {#    font-style: normal;#}
+        {#    src: url("fonts/Montserrat-Medium.eot");#}
+        {#    src: url("fonts/Montserrat-Medium.eot?#iefix") format('embedded-opentype'),#}
+        {#    url("fonts/Montserrat-Medium.woff2") format("woff2"),#}
+        {#    url("fonts/Montserrat-Medium.woff") format("woff");#}
+        {#}#}
+
+    </style>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='versions/red/main_red.css') }}">
+
+    <script type=text/javascript>
+        $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+    </script>
+    <script type="text/javascript" src="{{ url_for('static', filename='lib/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='lib/d3.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='lib/print.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='versions/red/base_red.js') }}"></script>
+
+    <title>Vinaware</title>
+
+</head>
+<body>
+
+<main>
+
+    <div id="new"><a href="#">+</a></div>
+
+    <div id="central-content">
+
+        <div class="viz-mode">
+
+            <section id="main-section">
+                <div id="treeviz">
+                    <svg>
+                    </svg>
+                </div>
+            </section>
+
+            <article id="main-article">
+                <div id="title-date"></div>
+                <div id="generated-text">
+{#                    енглеска је у том тренутку била страшна лица, која је, врло млада, врло добро, могла би било, чак и, да се, заувек, растају, а да ће му нога остати, ако не добије децу. она се, међутим, појави, у његовом загрљају скоро сасвим. млади су га, дакле, и, у лондону. кад стигли киша, у собу, виде да их и села, и да се из даљине. а кад су се вратили, тако, да је више од годину дана, али да је његова жена и рекла: да је то била, да је све узалуд учинио. осећао је, зачудо, да је, у том тренутку, осећао као да је, и он, могао да покаже свој утицај, оних, који се враћају на море, чак и у море, као и небо, па и у његовој, и она, полако, одлази, у своју кућу.#}
+                </div>
+            </article>
+
+        </div>
+
+    </div>
+
+    <div id="loading" class="loading" style="display:none">
+        <img src="{{ url_for('static', filename='media/loading.gif') }}"
+             alt="текст се генерише...">
+    </div>
+
+</main>
+
+</body>
+</html>

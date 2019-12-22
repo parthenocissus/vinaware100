@@ -257,16 +257,19 @@ var originalData = {
     ]
 };
 
+var pathToGenerate = "_generate";
+var fontName = "PlanGrotesquePro-Light";
+
 var data = originalData;
 var branches = [];
 var branchesCopy = branches;
 var count = 0;
 
-var da = 0.5;
+var da = 0.3;
 var dl = 0.8;
 var ar = 0.9;
-var dts = 0.8;
-var maxDepth = 5;
+var dts = 0.76;
+var maxDepth = 7;
 var currentDepth = maxDepth;
 
 var tremble = true;
@@ -278,27 +281,28 @@ var longWordList = [];
 
 var seed = {
     id: 0,
-    x: 25,
+    x: 50,
     y: 400,
     a: Math.PI/2,
     l: 80,
     d: 0,
     node: data,
-    txtSize: 55,
+    txtSize: 100,
     targetDepth: maxDepth,
     ext: false
 };
 
-var updateDataDuration = 400;
+var updateDataDuration = 1000;
 var lineGenerator = d3.line().curve(d3.curveCatmullRom);
 
 var generateText = function(wordVector, init) {
 
     loading(true);
 
-    let url = $SCRIPT_ROOT + '/_generate';
-    let dataToGo = {vector: JSON.stringify({"seedwords": wordVector}) };
+    let url = $SCRIPT_ROOT + pathToGenerate;
+    let dataToGo = {vector: JSON.stringify({"seedwords": wordVector, "depth": maxDepth}) };
     let onReceive = function(result) {
+        console.log(result);
         data = result;
     };
 
@@ -311,18 +315,18 @@ var generateText = function(wordVector, init) {
 
 function timeToTitle() {
     let now = new Date();
-    let h1 = $("#text-title").empty(), h2 = $("#text-date").empty();
+    let dateDiv = $("#title-date").empty();
 
     let add0 = function(number) {
         return (number < 10) ? ("0" + number) : ("" + number);
     };
 
-    h1.append(add0(now.getHours()) + ":" +
+    dateDiv.append(add0(now.getHours()) + ":" +
         add0(now.getMinutes()) + ":" +
-        add0(now.getSeconds()) );
-    h2.append("<em>" + now.getDate() + ". " +
-        (now.getMonth() + 1) + ". " +
-        (now.getFullYear() + ".</em>"));
+        add0(now.getSeconds()) + " | " +
+        now.getDate() + "." +
+        (now.getMonth() + 1) + "." +
+        (now.getFullYear() + "."));
 }
 
 function branch(b) {
@@ -353,9 +357,16 @@ function branch(b) {
 
     }
 
-    //b.l = getTextWidth(b.name, "bold " + b.txtSize + "pt Montserrat Alternates") + 25 * Math.pow(dl, b.d);
-    //b.l = getTextWidth(b.name, "bold " + b.txtSize + "pt Montserrat") + 25 * Math.pow(dl, b.d);
-    b.l = getTextWidth(b.name, "bold " + b.txtSize + "pt Montserrat") + 20 * Math.pow(dl, b.d);
+    //b.l = getTextWidth(b.name, "bold " + b.txtSize + "pt " + fontName) + 17 * Math.pow(dl, b.d);
+    let wordWidth = getTextWidth(b.name, "" + b.txtSize + "pt " + fontName);
+    let widthPonder;
+    switch(b.d) {
+        case 0: widthPonder = 1; break;
+        case 1: widthPonder = 1.1; break;
+        case 2: widthPonder = 1.15; break;
+        default: widthPonder = 1.2;
+    }
+    b.l = widthPonder * wordWidth;
 
     branches.push(b);
 
@@ -592,7 +603,7 @@ var onGeneratedInit = function() {
     timeToTitle();
 
     seed.node = data;
-    //seed.ext = true;
+    //seed.ext = true;f
     seed.targetDepth = maxDepth;
 
     branches = [];
@@ -724,16 +735,30 @@ function updateTreeGeneration() {
 
 var mainContentSaved, aboutFlag = false, play;
 
+function realReload() {
+    sendLogText();
+    location.reload();
+}
+
+function sendLogText() {
+    let txtDiv = $("#generated-text").text();
+    let url = $SCRIPT_ROOT + "_log";
+    let dataToGo = {vector: JSON.stringify({"text": txtDiv, "author": true}) };
+    let onReceive = function(result) {
+        console.log("SUCCESS LOGGING.");
+        console.log(result);
+    };
+    $.getJSON(url, dataToGo, onReceive)
+        .done(function() { });
+}
+
 function setupMenu() {
 
     let xFn = function() {
         aboutFlag = false;
-        location.reload();
+        //location.reload();
+        realReload();
     };
-
-    $('#logo').click(function() {
-        location.reload();
-    });
 
     ["logo", "about", "help", "wind", "new", "save"].forEach(function(item, i) {
         let shift = (i === 0) ? [42, -300] : [0, 0];
@@ -766,18 +791,19 @@ function setupMenu() {
     });
 
     $("#new").click(function() {
-        location.reload();
+        realReload();
+        //location.reload();
     });
 
-    $("#save").click(function() {
-        printJS({
-            printable: "main-article",
-            type: "html",
-            style: '#text-title { font-size: 14px; padding-bottom: 10px; margin-bottom: 10px; } ' +
-                '#text-date { font-size: 14px; } ' +
-                '#main-article { margin: 50px 50px 50px 50px; }'
-        })
-    });
+    // $("#save").click(function() {
+    //     printJS({
+    //         printable: "main-article",
+    //         type: "html",
+    //         style: '#text-title { font-size: 14px; padding-bottom: 10px; margin-bottom: 10px; } ' +
+    //             '#text-date { font-size: 14px; } ' +
+    //             '#main-article { margin: 50px 50px 50px 50px; }'
+    //     })
+    // });
 
     $("article").mouseenter(updateTreeGeneration).mouseleave(updateTreeGeneration);
     $(".spine").mouseenter(updateTreeGeneration).mouseleave(updateTreeGeneration);
@@ -789,10 +815,54 @@ function loading(please) {
     please ? spin.show() : spin.hide();
 }
 
+// Idle Automation
+let randomBranch;
+let idleTime = 0;
+let waitForIt = false;
+
+var idleAutomation = function() {
+
+    var idleInterval = setInterval(timerIncrement, 2000);
+
+    $(this).mousemove(function (e) {
+        console.log("mouse moved");
+        idleTime = 0;
+    });
+    $(this).keypress(function (e) {
+        idleTime = 0;
+    });
+
+}
+
+function timerIncrement() {
+    console.log("idleTime: " + idleTime);
+    let times = 4;
+    if (idleTime > 3) {
+        updateTreeGeneration();
+        if (idleTime % times == 0) {
+            randomBranch = branches[Math.floor(Math.random()*branches.length)];
+            highlight(randomBranch);
+            waitForIt = true;
+        }
+        if ((idleTime % times == 1) && (waitForIt)) {
+            waitForIt = false;
+            dataUpdate(randomBranch);
+        }
+    }
+    if (idleTime > 50) {
+        realReload();
+    }
+    idleTime = idleTime + 1;
+}
+// End of Idle Automation
+
 $(document).ready(function() {
+
     seed.y = $("body").innerHeight() / 2;
     //generateText(['јесен'], initTreeGeneration);
     initTreeGeneration();
     generateText([''], onGeneratedInit);
     setupMenu();
+
+    idleAutomation();
 });

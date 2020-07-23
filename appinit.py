@@ -40,11 +40,12 @@ def log():
     json_log_text = json.loads(strigified_log_text)
     text_to_be_saved = json_log_text.get("text")
 
-    timestamp = datetime.datetime.now().strftime("%Y-%m-%dT%H-%M-%S-%f")
-    filename = 'log_' + timestamp + '.txt'
-    f = open(filename,'w')
-    f.write(text_to_be_saved) 
-    f.close()
+    # LOGGING
+    # timestamp = datetime.datetime.now().strftime("%Y-%m-%dT%H-%M-%S-%f")
+    # filename = 'log_' + timestamp + '.txt'
+    # f = open(filename,'w')
+    # f.write(text_to_be_saved)
+    # f.close()
 
     okay = json.dumps(json_log_text)
     return okay 
@@ -107,7 +108,7 @@ def generate():
 
 @appinit.route('/')
 def index():
-    return render_template('placeholder.html')
+    return render_template('index.html')
 
 
 @appinit.route('/red')

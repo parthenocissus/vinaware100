@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='media/favicon.ico') }}"/>
+    <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:200,400&display=swap" rel="stylesheet">
+
+    <style>
+
+        .spine {
+            background-image: url({{ url_for('static', filename='media/wave.png') }});
+            background-repeat: repeat-y;
+            background-position: top right;
+        }
+
+        .wave-divide {
+            background-image: url({{ url_for('static', filename='media/wave2.png') }});
+            background-repeat: repeat-y;
+            background-position: top right;
+        }
+
+        @font-face {
+            font-family: "PlanGrotesquePro-Light";
+            font-weight: 200;
+            font-style: normal;
+            src: url({{ url_for('static', filename='fonts/PlanGrotesquePro-Light.woff') }}) format("woff");
+        }
+
+        @font-face {
+            font-family: "PlanGrotesquePro-Regular";
+            font-weight: 400;
+            font-style: normal;
+            src: url({{ url_for('static', filename='fonts/PlanGrotesquePro-Regular.woff') }}) format("woff");
+        }
+
+        @font-face {
+            font-family: "PlanGrotesquePro-Bold";
+            font-weight: 700;
+            font-style: normal;
+            src: url({{ url_for('static', filename='fonts/PlanGrotesquePro-Bold.woff') }}) format("woff");
+        }
+
+    </style>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='versions/fractal/main.css') }}">
+
+    <script type=text/javascript>
+        $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+    </script>
+    <script type="text/javascript" src="{{ url_for('static', filename='lib/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='lib/d3.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='lib/print.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='lib/p5.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='versions/fractal/base.js') }}"></script>
+
+    <title>Vinaware: Ja nisam željan da me ko voli nego da svi zavole lišće</title>
+
+</head>
+<body>
+
+<main>
+
+{#    <div id="plus"><a id="plushref" href="#">+</a></div>#}
+{##}
+{#    <div id="lilmenu">#}
+{#        <div id="new"><a href="#">ново стабло</a></div>#}
+{#        <div><a href="https://krcadinac.com/rad/projekti/vinaware" target="_blank">о пројекту</a></div>#}
+{#        <div><a href="https://krcadinac.com/rad/bio" target="_blank">о аутору</a></div>#}
+{#    </div>#}
+
+    <div id="central-content">
+
+        <div class="viz-mode">
+
+            <section id="main-section">
+
+                <div id="p5sketch">
+                </div>
+
+                <div id="treeviz">
+                    <svg></svg>
+                </div>
+
+            </section>
+
+            <article id="main-article">
+                <div id="title-date"></div>
+                <div id="generated-text">
+                    {#                    енглеска је у том тренутку била страшна лица, која је, врло млада, врло добро, могла би било, чак и, да се, заувек, растају, а да ће му нога остати, ако не добије децу. она се, међутим, појави, у његовом загрљају скоро сасвим. млади су га, дакле, и, у лондону. кад стигли киша, у собу, виде да их и села, и да се из даљине. а кад су се вратили, тако, да је више од годину дана, али да је његова жена и рекла: да је то била, да је све узалуд учинио. осећао је, зачудо, да је, у том тренутку, осећао као да је, и он, могао да покаже свој утицај, оних, који се враћају на море, чак и у море, као и небо, па и у његовој, и она, полако, одлази, у своју кућу.#}
+                </div>
+            </article>
+
+        </div>
+
+    </div>
+
+    <div id="loading" class="loading" style="display:none">
+        <img src="{{ url_for('static', filename='media/loading.gif') }}"
+             alt="текст се генерише...">
+    </div>
+
+</main>
+
+</body>
+</html>

@@ -1,0 +1,239 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /*--suncolor: #FFB901; #be0010*/
+    /*--suncolor: #740210;
+    --pacolor: #740210;
+      --bgcolor: #ffffff;
+      --darkcolor: #6d6e6d;
+    --darkcolorsub: #5f5f5f;
+      --graycolor: #868686;
+    --articlecolor: #1a1a1a;*/
+    --suncolor: white;
+    --bgcolor: white;
+    --darkcolor: #740210;
+    --darkcolorsub: #740210;
+    --articlecolor: #66020e;
+}
+
+::-moz-selection {
+    background: var(--darkcolorsub);
+}
+
+::selection {
+    background: var(--darkcolorsub);
+}
+
+body {
+    background-color: var(--darkcolor);
+    color: var(--bgcolor);
+    font-family: "Montserrat", sans-serif;
+    line-height: 1.6em;
+    letter-spacing: 0.2px;
+    font-weight: 400;
+    overflow: hidden;
+}
+
+#plus a {
+    position: absolute;
+    z-index: 10;
+    font-size: 30pt;
+    left: 30px;
+    top: 40px;
+    font-family: "PlanGrotesquePro-Regular", sans-serif;
+    color: var(--bgcolor);
+    opacity: 50%;
+}
+
+#lilmenu {
+    position: absolute;
+    z-index: 8;
+    font-size: 12pt;
+    left: 30px;
+    top: 75px;
+    font-family: "PlanGrotesquePro-Regular", sans-serif;
+	display: none;
+}
+
+#lilmenu div {
+    position: relative;
+    padding: 0 0 0 0;
+}
+
+#lilmenu div a {
+    color: var(--bgcolor);
+    opacity: 50%;
+}
+
+#plus a:hover {
+    color: var(--bgcolor);
+    opacity: 1;
+}
+
+#lilmenu div a:hover {
+    color: var(--bgcolor);
+    opacity: 1;
+}
+
+main {
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: 100vh;
+    grid-gap: 0px;
+    grid-template-areas: "cntr";
+}
+
+#central-content {
+    grid-area: cntr;
+}
+
+.viz-mode {
+    display: grid;
+    grid-template-columns: 72% 28%;
+    grid-template-rows: 100vh;
+    grid-gap: 0px;
+    grid-template-areas: "vizz gentext";
+}
+
+a {
+    color: var(--bgcolor);
+    text-decoration: none;
+}
+
+section {
+    grid-area: vizz;
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 400px 1fr;
+    grid-template-areas:
+            "left right";
+}
+
+#p5sketch {
+    background-color: yellow;
+    grid-area: left;
+}
+
+#treeviz {
+    grid-area: right;
+}
+
+svg {
+    font-family: 'PlanGrotesquePro-Light', 'Montserrat', sans-serif;
+    letter-spacing: 0.11em;
+    font-weight: 400;
+    width: 72vw;
+    height: 100vh;
+    background-color: var(--darkcolor);
+}
+
+path, line {
+    stroke: var(--darkcolor);
+}
+
+text {
+    /*letter-spacing: 12px;*/
+    /*text-transform: uppercase;*/
+    /*text-anchor: middle;*/
+    /*font-weight: 300;*/
+    cursor: pointer;
+    text-anchor: end;
+}
+
+.defaultText {
+    fill: var(--bgcolor);
+    opacity: 1;
+}
+
+.selectedText {
+    fill: var(--suncolor);
+    opacity: 1;
+}
+
+.unselectedText {
+    fill: var(--bgcolor);
+    opacity: 0.3;
+}
+
+article {
+    grid-area: gentext;
+    background-color: var(--articlecolor);
+    padding: 40px 25px 30px 45px;
+    font-family: 'PlanGrotesquePro-Light', Montserrat, sans-serif;
+    letter-spacing: 0.12em;
+    font-size: 18pt;
+    line-height: 1.3;
+    letter-spacing: 0.5pt;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    cursor: context-menu !important;
+}
+
+#title-date {
+    margin-bottom: 52px;
+    color: var(--bgcolor);
+    font-size: 10pt;
+    opacity: 50%;
+}
+
+#text-title {
+    justify-self: left;
+}
+
+#text-date {
+    justify-self: right;
+}
+
+#generated-text {
+    min-height: calc(100vh - 100px - 10%);
+}
+
+article::-webkit-scrollbar {
+    width: 1em;
+}
+
+article::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0);
+}
+
+article::-webkit-scrollbar-thumb {
+    background-color: var(--darkcolorsub);
+    outline: 1px solid var(--darkcolor);
+}
+
+.hidden {
+    display: none;
+}
+
+.loading {
+    position: fixed;
+    top: 50%;
+    left: -100%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 9999;
+    overflow: hidden;
+    /*width: 70px;*/
+    /*height: 60px;*/
+}
+
+.ghost-text {
+    color: var(--bgcolor);
+    opacity: 50%;
+    /* font-family: "PlanGrotesquePro-Medium", sans-serif; */
+}
+
+#save {
+    display: none;
+}
+
+.wave-divide {
+    display: none;
+}
+
+

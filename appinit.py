@@ -121,6 +121,11 @@ def index_zoom():
     return render_template('index_zoom.html')
 
 
+@appinit.route('/fractal')
+def index_fractal():
+    return render_template('fractal.html')
+
+
 if __name__ == '__main__':
     print('Loading model...')
     # load()

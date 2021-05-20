@@ -103,8 +103,8 @@ def generate_random_start_text(model, vocab,
 
             text = text + [option]
 
-    print(text)
-    print(len(text))
+    # print(text)
+    # print(len(text))
 
     return text
 
@@ -162,27 +162,32 @@ def textgenrnn_generate_special(model, vocab,
                 top_n=n_branches
             )
             options = [indices_char[idx] for idx in options_index]
+            # filter punctuations
+            options = list(filter(lambda o: o not in puncts, options))
             return options
 
-        options = get_options()
+        options = get_options(10)
+        options = options[:2]
 
-        for option in options:
+        print("start")
+        for index, option in enumerate(options):
+            print(index)
 
-            if text[-1]:
-                prev_option = text[-1]
-            else:
-                prev_option = " "
-
-            prev_is_punct = prev_option[0] in puncts
-            both_are_punct = prev_is_punct and option[0] in puncts
-
-            if (prev_option == option) or both_are_punct:
-                new_options = get_options(10)
-                for new_option in new_options:
-                    both_are_punct_again = prev_is_punct and new_option[0] in puncts
-                    if (prev_option != new_option) and not both_are_punct_again:
-                        option = new_option
-                        break
+            # if text[-1]:
+            #     prev_option = text[-1]
+            # else:
+            #     prev_option = " "
+            #
+            # prev_is_punct = prev_option[0] in puncts
+            # both_are_punct = prev_is_punct and option[0] in puncts
+            #
+            # if (prev_option == option) or both_are_punct:
+            #     new_options = get_options(10)
+            #     for new_option in new_options:
+            #         both_are_punct_again = prev_is_punct and new_option[0] in puncts
+            #         if (prev_option != new_option) and not both_are_punct_again:
+            #             option = new_option
+            #             break
 
             item_text = text + [option]
 

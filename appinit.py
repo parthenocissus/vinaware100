@@ -90,9 +90,6 @@ def generate():
 
     input_words = [cyrtranslit.to_latin(word) for word in input_words]
 
-    print("TEXTGEN:")
-    print(textgen)
-
     generated_text = textgen.generate_special(temperature=temp,
                                    max_gen_length=1,
                                    interactive=True,
@@ -101,8 +98,8 @@ def generate():
                                    input_depth=max_depth)
 
     txt_json = json.dumps(generated_text)
-    print("TEXT JSON:")
-    print(txt_json)
+    # print("TEXT JSON:")
+    # print(txt_json)
     return txt_json
 
 
@@ -125,6 +122,10 @@ def index_zoom():
 def index_fractal():
     return render_template('fractal.html')
 
+
+@appinit.route('/txtpnt')
+def index_text_to_points_lab():
+    return render_template('text_to_points_lab.html')
 
 if __name__ == '__main__':
     print('Loading model...')

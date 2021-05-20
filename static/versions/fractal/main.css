@@ -93,10 +93,10 @@ main {
 
 .viz-mode {
     display: grid;
-    grid-template-columns: 72% 28%;
+    grid-template-columns: 1fr;
     grid-template-rows: 100vh;
     grid-gap: 0px;
-    grid-template-areas: "vizz gentext";
+    grid-template-areas: "vizz";
 }
 
 a {
@@ -109,131 +109,12 @@ section {
     position: relative;
     z-index: 1;
     display: grid;
-    grid-template-columns: 400px 1fr;
+    grid-template-columns: 1fr;
     grid-template-areas:
-            "left right";
+            "left";
 }
 
 #p5sketch {
-    background-color: yellow;
+    background-color: gray;
     grid-area: left;
 }
-
-#treeviz {
-    grid-area: right;
-}
-
-svg {
-    font-family: 'PlanGrotesquePro-Light', 'Montserrat', sans-serif;
-    letter-spacing: 0.11em;
-    font-weight: 400;
-    width: 72vw;
-    height: 100vh;
-    background-color: var(--darkcolor);
-}
-
-path, line {
-    stroke: var(--darkcolor);
-}
-
-text {
-    /*letter-spacing: 12px;*/
-    /*text-transform: uppercase;*/
-    /*text-anchor: middle;*/
-    /*font-weight: 300;*/
-    cursor: pointer;
-    text-anchor: end;
-}
-
-.defaultText {
-    fill: var(--bgcolor);
-    opacity: 1;
-}
-
-.selectedText {
-    fill: var(--suncolor);
-    opacity: 1;
-}
-
-.unselectedText {
-    fill: var(--bgcolor);
-    opacity: 0.3;
-}
-
-article {
-    grid-area: gentext;
-    background-color: var(--articlecolor);
-    padding: 40px 25px 30px 45px;
-    font-family: 'PlanGrotesquePro-Light', Montserrat, sans-serif;
-    letter-spacing: 0.12em;
-    font-size: 18pt;
-    line-height: 1.3;
-    letter-spacing: 0.5pt;
-    overflow-x: hidden;
-    overflow-y: scroll;
-    cursor: context-menu !important;
-}
-
-#title-date {
-    margin-bottom: 52px;
-    color: var(--bgcolor);
-    font-size: 10pt;
-    opacity: 50%;
-}
-
-#text-title {
-    justify-self: left;
-}
-
-#text-date {
-    justify-self: right;
-}
-
-#generated-text {
-    min-height: calc(100vh - 100px - 10%);
-}
-
-article::-webkit-scrollbar {
-    width: 1em;
-}
-
-article::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0);
-}
-
-article::-webkit-scrollbar-thumb {
-    background-color: var(--darkcolorsub);
-    outline: 1px solid var(--darkcolor);
-}
-
-.hidden {
-    display: none;
-}
-
-.loading {
-    position: fixed;
-    top: 50%;
-    left: -100%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    z-index: 9999;
-    overflow: hidden;
-    /*width: 70px;*/
-    /*height: 60px;*/
-}
-
-.ghost-text {
-    color: var(--bgcolor);
-    opacity: 50%;
-    /* font-family: "PlanGrotesquePro-Medium", sans-serif; */
-}
-
-#save {
-    display: none;
-}
-
-.wave-divide {
-    display: none;
-}
-
-

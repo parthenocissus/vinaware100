@@ -127,6 +127,12 @@ def index_fractal():
 def index_text_to_points_lab():
     return render_template('text_to_points_lab.html')
 
+
+@appinit.route('/txtprln')
+def index_text_perlin():
+    return render_template('textlabs-perlin.html')
+
+
 if __name__ == '__main__':
     print('Loading model...')
     # load()

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='media/favicon.ico') }}"/>
+
+    <style>
+
+        html, body {
+            background-color: black;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        main {
+            position: relative;
+            height: 100%;
+        }
+
+        #p5sketch {
+            text-align: center;
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
+
+    </style>
+
+    {#    <link rel="stylesheet" href="{{ url_for('static', filename='versions/fractal/main.css') }}">#}
+
+    <script type=text/javascript>
+        $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+    </script>
+    <script type="text/javascript" src="{{ url_for('static', filename='lib/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='lib/p5.min.js') }}"></script>
+    <script type="text/javascript"
+            src="{{ url_for('static', filename='versions/fractal/textlabs-perlin.js') }}"></script>
+
+    <title>textlabs</title>
+
+</head>
+<body>
+
+<main>
+
+    <div id="p5sketch"></div>
+
+</main>
+
+</body>
+</html>
